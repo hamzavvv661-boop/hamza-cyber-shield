@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HAMZA CYBER SHIELD</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080d12;color:#e9f5ef;
+ font-family:Tahoma,Arial,sans-serif
+}
+header{
+ background:#0c1718;border-bottom:2px solid #00e68a;
+ text-align:center;padding:25px
+}
+.logo{color:#00f59b;font-size:26px;font-weight:bold}
+.container{width:90%;max-width:900px;margin:30px auto}
+.hero{text-align:center;padding:20px}
+.shield{font-size:60px}
+h1,h2{color:#00f59b}
+.card{
+ background:#101a20;border:1px solid #1b3933;
+ border-radius:15px;padding:22px;margin:20px 0
+}
+.info{color:#a4b8ae;line-height:2}
+input{
+ width:100%;padding:15px;margin:12px 0;
+ background:#080f14;color:white;border:1px solid #315348;
+ border-radius:8px;font-size:16px
+}
+#urlInput{direction:ltr;text-align:left}
+button{
+ background:#00e68a;color:#07130e;border:0;
+ border-radius:8px;padding:13px 20px;
+ font-weight:bold;cursor:pointer;margin:5px
+}
+.secondary{background:#263b35;color:white}
+.result{
+ background:#080f14;padding:16px;border-radius:9px;
+ margin-top:15px;line-height:2;white-space:pre-line;
+ overflow-wrap:anywhere
+}
+.counter{font-size:27px;color:#00f59b;font-weight:bold}
+.bar{
+ width:100%;height:13px;background:#263b35;
+ border-radius:20px;margin-top:15px;overflow:hidden
+}
+#strengthFill{
+ width:0;height:100%;background:#00e68a;
+ transition:width .3s
+}
+.lesson{
+ background:#0b1419;border-right:3px solid #00e68a;
+ padding:12px;margin:14px 0;border-radius:8px
+}
+footer{text-align:center;padding:25px;color:#789087}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">HAMZA CYBER SHIELD</div>
+ <p>منصة التوعية والفحص السيبراني</p>
+</header>
+
+<div class="container">
+
+<section class="hero">
+ <div class="shield">🛡️</div>
+ <h1>حمزة - الدرع السيبراني</h1>
+ <p class="info">حماية رقمية وتوعية سيبرانية</p>
+</section>
+
+<section class="card">
+ <h2>🔍 فحص الروابط</h2>
+ <p class="info">أدخل رابطاً للفحص الأولي.</p>
+
+ <input id="urlInput" type="text"
+ placeholder="https://example.com">
+
+ <button type="button" onclick="checkURL()">ابدأ الفحص</button>
+ <button type="button" class="secondary"
+ onclick="clearURL()">مسح</button>
+
+ <div class="result" id="scanResult">
+ بانتظار إدخال رابط...
+ </div>
+</section>
+
+<section class="card">
+ <h2>📊 إحصائيات الفحص</h2>
+ <p class="info">عدد مؤشرات التحذير:</p>
+ <div class="counter" id="warningCount">0</div>
+</section>
+
+<section class="card">
+ <h2>🔐 فحص قوة كلمة المرور</h2>
+ <p class="info">
+ استخدم كلمة تجريبية فقط، ولا تكتب كلمة مرور حسابك الحقيقي.
+ </p>
+
+ <input id="passwordInput" type="password"
+ placeholder="اكتب كلمة تجريبية">
+
+ <button type="button" onclick="checkPassword()">
+ افحص كلمة المرور
+ </button>
+
+ <button type="button" class="secondary"
+ onclick="togglePassword()">إظهار / إخفاء</button>
+
+ <button type="button" class="secondary"
+ onclick="clearPassword()">مسح</button>
+
+ <div class="bar">
+  <div id="strengthFill"></div>
+ </div>
+
+ <div class="result" id="passwordResult">
+ بانتظار الفحص...
+ </div>
+</section>
+
+<section class="card">
+ <h2>📚 تعلم الأمن السيبراني</h2>
+
+ <div class="lesson">
+  <h3>🎣 التصيد الإلكتروني</h3>
+  <p class="info">رسائل أو مواقع مزيفة تحاول خداعك للحصول على معلوماتك.</p>
+ </div>
+
+ <div class="lesson">
+  <h3>🔐 حماية الحسابات</h3>
+  <p class="info">استخدم كلمة مرور فريدة وفعل المصادقة الثنائية.</p>
+ </div>
+
+ <div class="lesson">
+  <h3>🌐 الروابط المشبوهة</h3>
+  <p class="info">تحقق من عنوان الموقع قبل إدخال بياناتك.</p>
+ </div>
+
+ <div class="lesson">
+  <h3>🛡️ الخصوصية</h3>
+  <p class="info">لا تشارك بياناتك الشخصية أو رموز التحقق.</p>
+ </div>
+
+ <div class="lesson">
+  <h3>🚨 الابتزاز الإلكتروني</h3>
+  <p class="info">لا تستجب للتهديدات، واطلب المساعدة من شخص بالغ موثوق والجهات الرسمية.</p>
+ </div>
+</section>
+
+</div>
+
+<footer>
+ HAMZA CYBER SHIELD © 2027
+ <p>التوعية الرقمية مسؤولية الجميع</p>
+</footer>
+
+<script>
+
+function checkURL(){
+
+ const input=document.getElementById("urlInput");
+ const result=document.getElementById("scanResult");
+ const count=document.getElementById("warningCount");
+
+ const value=input.value.trim();
+
+ if(!value){
+  result.textContent="يرجى إدخال رابط أولاً.";
+  count.textContent="0";
+  return;
+ }
+
+ let url;
+
+ try{
+  url=new URL(value);
+ }catch(error){
+  result.textContent="الرابط غير صحيح. أدخل رابطاً يبدأ بـ https:// أو http://";
+  count.textContent="0";
+  return;
+ }
+
+ if(url.protocol!=="https:" && url.protocol!=="http:"){
+  result.textContent="نوع الرابط غير مدعوم.";
+  count.textContent="0";
+  return;
+ }
+
+ const warnings=[];
+
+ if(url.protocol==="http:"){
+  warnings.push("الرابط لا يستخدم HTTPS.");
+ }
+
+ if(url.hostname.length>30){
+  warnings.push("اسم النطاق طويل بشكل غير معتاد.");
+ }
+
+ if(url.hostname.split(".").length>4){
+  warnings.push("يوجد عدد كبير من النطاقات الفرعية.");
+ }
+
+ if(/^(\d{1,3}\.){3}\d{1,3}$/.test(url.hostname)){
+  warnings.push("الرابط يستخدم عنوان IP.");
+ }
+
+ if(url.hostname.includes("xn--")){
+  warnings.push("اسم النطاق يحتوي على ترميز خاص.");
+ }
+
+ if(/login|verify|account|password|update/i.test(url.href)){
+  warnings.push("توجد كلمات تستحق التحقق.");
+ }
+
+ count.textContent=warnings.length;
+
+ if(warnings.length){
+  result.textContent="مؤشرات تحذيرية ("+
+   warnings.length+"):\n"+warnings.join("\n");
+ }else{
+  result.textContent="لم تظهر مؤشرات التحذير الأولية.";
+ }
+
+ result.textContent+="\nملاحظة: هذا فحص أولي ولا يثبت أن الموقع آمن أو ضار.";
+}
+
+function clearURL(){
+ document.getElementById("urlInput").value="";
+ document.getElementById("scanResult").textContent="بانتظار إدخال رابط...";
+ document.getElementById("warningCount").textContent="0";
+}
+
+function checkPassword(){
+
+ const password=document.getElementById("passwordInput").value;
+ const result=document.getElementById("passwordResult");
+ const fill=document.getElementById("strengthFill");
+
+ if(password.length===0){
+  result.textContent="اكتب كلمة تجريبية أولاً.";
+  fill.style.width="0%";
+  return;
+ }
+
+ let score=0;
+
+ if(password.length>=8) score++;
+ if(password.length>=12) score++;
+ if(/[a-z]/.test(password)) score++;
+ if(/[A-Z]/.test(password)) score++;
+ if(/[0-9]/.test(password)) score++;
+ if(/[^a-zA-Z0-9]/.test(password)) score++;
+
+ let level;
+ let percent=Math.round(score/6*100);
+
+ if(password.length<8){
+  level="ضعيفة";
+ }else if(score<=3){
+  level="ضعيفة";
+ }else if(score<=4){
+  level="متوسطة";
+ }else{
+  level="قوية حسب المؤشرات البسيطة";
+ }
+
+ fill.style.width=percent+"%";
+
+ result.textContent=
+  "نتيجة الفحص: "+level+
+  "\nعدد الأحرف: "+password.length+
+  "\nالمؤشرات المحققة: "+score+" من 6"+
+  "\nالتقييم تقريبي وليس ضماناً للأمان.";
+}
+
+function togglePassword(){
+ const input=document.getElementById("passwordInput");
+ input.type=input.type==="password"?"text":"password";
+}
+
+function clearPassword(){
+ document.getElementById("passwordInput").value="";
+ document.getElementById("passwordResult").textContent="بانتظار الفحص...";
+ document.getElementById("strengthFill").style.width="0%";
+}
+
+</script>
+
+</body>
+</html>
